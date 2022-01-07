@@ -7,8 +7,8 @@
  * todo mongodb
  */
 var express = require('express');
-var parkingRoute = require('./routes/parkings')
-var reservationRoute = require('./routes/reservations')
+var parkingRoute = require('./routes/parkingsController')
+var reservationRoute = require('./routes/reservationsController')
 var app = express()
 const  database = require('./database/database')
 /**

@@ -15,7 +15,8 @@ router.get('/parkings/:id',async (req,res) => {
 })
 
 router.post('/parkings', async ( req, res ) => {
-    await parking.post(req, (msg) => {res.send(msg)}) 
+    const createdItem = await parking.post(req.body)
+    res.status(203).json(createdItem)
 })
 
 router.put('/parkings', async (req,res) => {
@@ -24,17 +25,17 @@ router.put('/parkings', async (req,res) => {
     await parking.put(updateDoc, id, (msg) => res.send(msg))    
 })
 
-router.delete('/parkings/:id', (req,res) => {
+router.patch('/parkings', async (req,res) => {
+    const id = parseInt(req.body.id);
+    let updateDoc = {"$set":req.body}
+    await parking.patch(updateDoc, id, (msg) => res.send(msg))    
+})
+
+router.delete('/parkings/:id', async (req,res) => {
     const id = parseInt(req.params.id);
-    database.db.collection(_collection).deleteMany( {"id":id}, function(err, docs){
-        if (err) {
-            console.log(err)
-            throw err
-        }
-        console.log(docs);
-        res.send('deleted :' +docs)
+    await parking.delete(id, async (docs) => {
+        res.send(docs)
     })
-    
 })
 
 module.exports = router;

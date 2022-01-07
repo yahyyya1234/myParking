@@ -6,8 +6,6 @@
 var express= require('express')
 var router = express.Router()
 
-const reservations = require('../reservations.json')
-
 /**
  * *GET /parkings/2/reservations
  * @param idp parking identifier
